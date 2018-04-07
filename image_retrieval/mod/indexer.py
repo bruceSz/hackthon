@@ -2,9 +2,10 @@ import h5py
 import abc
 
 class IndexReader(object):
+    __metaclass__ = abc.ABCMeta
 
-    @abc.ABCMeta
-    def read_index(self):
+    @abc.abstractmethod
+    def read(self):
         pass
 
 
@@ -24,7 +25,7 @@ class FileIndexReader(IndexReader):
 
 
 class IndexWriter(object):
-    @abc.ABCMeta
+    @abc.abstractmethod
     def write(self):
         pass
-    
+

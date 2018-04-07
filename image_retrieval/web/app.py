@@ -1,12 +1,12 @@
 from flask import Flask, request, render_template
-from mod import search_engine
+from image_retrieval.mod import search_engine
 
 
 def PictureSearch():
 
     APP = Flask(__name__)
 
-    #se_ = search_engine.SearchEngine()
+    se_ = search_engine.SearchEngine()
 
 
     @APP.route("/")
@@ -16,13 +16,30 @@ def PictureSearch():
     @APP.route("/find_similar_pic",methods=['POST'])
     def search():
         if request.files.get("file"):
-            file = request.files.get('file')
-            data = file.read()
+            file = request.files.get("file")
+            img = file.read()
+            import io
+            imgf = io.BytesIO(img)
+            similar_img_list = se_.search(imgf)
+            print(similar_img_list)
+            top_1_img = similar_img_list[0]
+            name = "0002.jpg"
             # TODO. ignore them now.
-            #results = self.se_
-            ret = render_template("img_retrieval/result.html",file_n='static/web/0002.jpg')
-            print ret
+            #ret = render_template("img_retrieval/result.html",file_n='static/web/'+top_1_img)
+            ret = render_template("img_retrieval/result.html", file_n='static/web/'+top_1_img)
+            print(ret)
             return ret
+
+    @APP.route("/api/find_similar_pic",methods = ['POST'])
+    def search_api():
+        if request.files.get("file"):
+            file = request.files.get("file")
+            img  = file.read()
+            import StringIO
+            img_f_path = StringIO.StringIO(img)
+            similar_img_list = se_.search(img_f_path)
+            print(similar_img_list)
+
 
     return APP
 
@@ -87,7 +104,5 @@ def  ExampleApi():
     return APP
 
 
-if __name__ == "__main__":
-    app = PictureSearch()
-    app.run()
+
 

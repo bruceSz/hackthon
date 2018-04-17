@@ -48,6 +48,7 @@ class IndexBuilder(object):
         """
         Return a list of files for all jpg images in dir.
         """
+        #TODO. change fetch jpg dir.
         return [os.path.join(dir_p,f) for f in os.listdir(dir_p) if f.endswith(".jpg")]
 
     def build(self):

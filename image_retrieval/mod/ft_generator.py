@@ -32,7 +32,6 @@ class VGGFeatureGenerator(FeatureGenerator):
         self.model.predict(np.zeros((1, 224, 224, 3)))
 
     def extract_ft(self,img_path):
-        print(type(img_path))
         #img = Image.open(img_path)
         #img = img.resize((self.input_shape[0],self.input_shape[1]))
         img = image.load_img(img_path,target_size=(self.input_shape[0],self.input_shape[1]))

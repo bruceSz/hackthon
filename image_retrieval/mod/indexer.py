@@ -44,15 +44,23 @@ class IndexBuilder(object):
     # 2 index hot-patch.
     # 3 index mem.
 
-    def get_img_list(self, dir_p):
+    def __init__(self):
+        self.model_ = ft_generator.VGGFeatureGenerator()
+
+
+    def _get_img_list(self, dir_p):
         """
         Return a list of files for all jpg images in dir.
         """
         #TODO. change fetch jpg dir.
         return [os.path.join(dir_p,f) for f in os.listdir(dir_p) if f.endswith(".jpg")]
 
-    def build(self):
-        img_list = self.get_img_list(IndexBuilder._LOCAL_FILE_DIR)
+    def build(self,img_p,class_name):
+        norm_ft = self.model_.extract_ft(img_p)
+        return class_name,norm_ft
+
+    def batch_build(self):
+        img_list = self._get_img_list(IndexBuilder._LOCAL_FILE_DIR)
 
         fts = []
         names = []

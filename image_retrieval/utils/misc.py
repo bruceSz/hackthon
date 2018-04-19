@@ -60,8 +60,23 @@ def image_preprocess(img_path,output_dir,out_size):
 
 if __name__ == "__main__":
     import sys
-    print(sys.path)
-    image_preprocess("../static/web/doufu/tofu1.jpg",
-                     "../static/web/doufu/trans",20)
+    import os
+
+    #["../static/web/doufu","../static/web/jiliu","../static/web/liangbandoupi",
+    dirs = [ "../static/web/jiliu", "../static/web/liangbandoupi",
+            "../static/web/mao","../static/web/qincaihuashengmi","../static/web/ribendoufu",
+            "../static/web/roucaipinfan","../static/web/shoufengqin","../static/web/zhuti"]
+    for dir in dirs:
+        for d_ in os.listdir(dir):
+            if d_ == "tofu1.jpg":
+                continue
+            path = os.path.join(dir,d_)
+            trans_path = os.path.join(dir,"trans")
+            if not os.path.isdir(trans_path):
+                os.mkdir(trans_path)
+            if os.path.isfile(path):
+                print path
+                print trans_path
+                image_preprocess(path,trans_path,100)
     #image_preprocess("../static/web/doufu/tofu1.jpg",
-    #                 "./trans",20)
+    #                 "../static/web/doufu/trans",80)

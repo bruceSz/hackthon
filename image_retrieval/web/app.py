@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 from image_retrieval.mod import search_engine
+from entity import entity_mapper
 
 
 def PictureSearch():
@@ -49,8 +50,11 @@ def PictureSearch():
             final_img_id = similar_img_list[0]
             if type(final_img_id) != type(""):
                 final_img_id = final_img_id.decode()
-
-            return jsonify(final_img_id)
+            food_ids = entity_mapper.DishToComponent.dish2Food(final_img_id)
+            ret  = {}
+            ret['dish_name']=final_img_id
+            ret['food_ids'] = food_ids
+            return jsonify(ret)
 
     return APP
 

@@ -75,8 +75,8 @@ if __name__ == "__main__":
             if not os.path.isdir(trans_path):
                 os.mkdir(trans_path)
             if os.path.isfile(path):
-                print path
-                print trans_path
+                print(path)
+                print(trans_path)
                 image_preprocess(path,trans_path,100)
     #image_preprocess("../static/web/doufu/tofu1.jpg",
     #                 "../static/web/doufu/trans",80)

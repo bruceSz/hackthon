@@ -1,0 +1,3 @@
+*.py
+/static/web
+/static/web.bak
